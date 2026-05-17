@@ -39,7 +39,7 @@ export default function Politics() {
 
   const fetchNews = (t) => {
     setLoading(true)
-    fetch(`http://127.0.0.1:8000/api/news/search?query=${t}`)
+    fetch(`https://trendpulse-production-fd41.up.railway.app/api/news/search?query=${t}`)
       .then(r => r.json())
       .then(data => {
         setArticles(data.data || [])

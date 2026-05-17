@@ -31,7 +31,7 @@ export default function Dashboard() {
   const [time, setTime] = useState(new Date())
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/trends")
+    fetch("https://trendpulse-production-fd41.up.railway.app/api/trends")
       .then(r => r.json())
       .then(d => setTrends(d.data || []))
       .catch(() => {})

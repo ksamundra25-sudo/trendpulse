@@ -13,7 +13,7 @@ export default function Trends() {
 
   const fetchTrends = () => {
     setRefreshing(true)
-    fetch("http://127.0.0.1:8000/api/trends")
+    fetch("https://trendpulse-production-fd41.up.railway.app/api/trends")
       .then(r => r.json())
       .then(data => {
         setTrends(data.data || [])

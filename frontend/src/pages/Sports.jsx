@@ -95,7 +95,7 @@ export default function Sports() {
 
   const fetchMatches = (day) => {
     setLoading(true)
-    fetch(`http://127.0.0.1:8000/api/sports/football?day=${day}`)
+    fetch(`https://trendpulse-production-fd41.up.railway.app/api/sports/football?day=${day}`)
       .then(r => r.json())
       .then(data => {
         setMatches(data.data || [])
@@ -109,7 +109,7 @@ export default function Sports() {
     const key = `${league}_${season}`
     if (standings[key]) return
     setStandingsLoading(true)
-    fetch(`http://127.0.0.1:8000/api/sports/standings?league=${league}&season=${season}`)
+    fetch(`https://trendpulse-production-fd41.up.railway.app/api/sports/standings?league=${league}&season=${season}`)
       .then(r => r.json())
       .then(data => {
         setStandings(prev => ({ ...prev, [key]: data.data || [] }))
