@@ -9,7 +9,11 @@ app = FastAPI(title="TrendPulse API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://sensational-lily-e913a8.netlify.app",
+        "*",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -154,7 +158,6 @@ def get_football(day: str = "today"):
             f"https://v3.football.api-sports.io/fixtures?date={target}",
             headers=SPORTS_HEADERS
         ).json()
-
         for f in todays.get("response", []):
             fid = f["fixture"]["id"]
             if fid not in seen:
@@ -167,13 +170,12 @@ def get_football(day: str = "today"):
 
 
 @app.get("/api/sports/standings")
-def get_standings(league: int = 39, season: int = 2025):
+def get_standings(league: int = 39, season: int = 2024):
     try:
         res = requests.get(
             f"https://v3.football.api-sports.io/standings?league={league}&season={season}",
             headers=SPORTS_HEADERS
         ).json()
-
         standings = []
         for group in res.get("response", []):
             for league_data in group.get("league", {}).get("standings", []):
@@ -191,7 +193,6 @@ def get_standings(league: int = 39, season: int = 2025):
                         "points": team["points"],
                         "form": team.get("form", ""),
                     })
-
         return {"league": league, "season": season, "data": standings}
     except Exception as e:
         return {"error": str(e), "data": []}
